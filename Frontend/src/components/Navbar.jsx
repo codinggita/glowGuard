@@ -24,10 +24,10 @@ const Navbar = () => {
           GlowGuard
         </Link>
         <nav className="desktop-nav">
-          <a href="#services">Services</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
-          <a href="#blog">Blog</a>
+          <Link to="/#services">Services</Link>
+          <Link to="/#about">About</Link>
+          <Link to="/#contact">Contact</Link>
+          <Link to="/#blog">Blog</Link>
           <Link to="/dashboard" className="nav-login-btn">Dashboard</Link>
           <Link to="/login" className="nav-login-btn">Log In</Link>
           <Link to="/register" className="btn btn-primary" style={{ padding: '0.6rem 1.4rem', fontSize: '0.9rem' }}>Sign Up</Link>

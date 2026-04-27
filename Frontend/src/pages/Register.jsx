@@ -186,9 +186,9 @@ const Register = () => {
               />
               <span className="auth-checkbox-custom" />
               I agree to the{' '}
-              <a href="#" className="auth-link-primary">Terms of Service</a>{' '}
+              <Link to="/" className="auth-link-primary">Terms of Service</Link>{' '}
               and{' '}
-              <a href="#" className="auth-link-primary">Privacy Policy</a>.
+              <Link to="/" className="auth-link-primary">Privacy Policy</Link>.
             </label>
 
             {/* Submit */}
