@@ -117,7 +117,7 @@ const Login = () => {
             <div className="auth-field-group">
               <div className="auth-label-row">
                 <label className="auth-label" htmlFor="login-password">Password</label>
-                <a href="#" className="auth-link-small">Forgot password?</a>
+                <Link to="/" className="auth-link-small">Forgot password?</Link>
               </div>
               <div className="auth-input-wrap">
                 <span className="auth-input-icon"><LockIcon /></span>

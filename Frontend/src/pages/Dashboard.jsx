@@ -203,7 +203,7 @@ const Dashboard = () => {
               <section className="appointments-section">
                 <div className="section-header">
                   <h2>Upcoming Appointments</h2>
-                  <a href="#" className="view-all">View All</a>
+                  <span className="view-all" style={{ cursor: 'pointer' }}>View All</span>
                 </div>
                 <div className="appointments-list">
                   <div className="appointment-card">
