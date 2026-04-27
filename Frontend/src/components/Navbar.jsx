@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const HamburgerIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -18,15 +19,18 @@ const Navbar = () => {
   return (
     <header className="header">
       <div className="main-container">
-        <div className="logo">
+        <Link to="/" className="logo" style={{ textDecoration: 'none' }}>
           <ActivityIcon />
-          HealthCare+
-        </div>
+          GlowGuard
+        </Link>
         <nav className="desktop-nav">
           <a href="#services">Services</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
           <a href="#blog">Blog</a>
+          <Link to="/dashboard" className="nav-login-btn">Dashboard</Link>
+          <Link to="/login" className="nav-login-btn">Log In</Link>
+          <Link to="/register" className="btn btn-primary" style={{ padding: '0.6rem 1.4rem', fontSize: '0.9rem' }}>Sign Up</Link>
         </nav>
         <button className="hamburger">
           <HamburgerIcon />
@@ -37,3 +41,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
