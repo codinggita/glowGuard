@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const ChevronRightIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -6,7 +7,7 @@ const ChevronRightIcon = () => (
   </svg>
 );
 
-const Card = ({ icon, title, description }) => {
+const Card = ({ icon, title, description, linkTo = "#" }) => {
   return (
     <div className="service-card">
       <div className="service-icon-wrapper">
@@ -14,7 +15,7 @@ const Card = ({ icon, title, description }) => {
       </div>
       <h3>{title}</h3>
       <p>{description}</p>
-      <a href="#" className="learn-more">Learn More <ChevronRightIcon /></a>
+      <Link to={linkTo} className="learn-more">Learn More <ChevronRightIcon /></Link>
     </div>
   );
 };

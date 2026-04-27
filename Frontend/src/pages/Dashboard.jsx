@@ -1,7 +1,101 @@
-import React from 'react';
-import { Menu, Bell, Download, Plus, Microscope, Home, Activity, Award, UserPlus, MoreVertical, Edit2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { Menu, Bell, Download, Plus, Microscope, Home, Activity, Award, UserPlus, MoreVertical, Edit2, X, Calendar, Clock, User, Stethoscope } from 'lucide-react';
+
+const NewAppointmentModal = ({ onClose }) => {
+  const [form, setForm] = useState({
+    patientName: '',
+    doctor: '',
+    type: '',
+    date: '',
+    time: '',
+    notes: '',
+  });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e) => {
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitted(true);
+    setTimeout(() => onClose(), 2000);
+  };
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-card" onClick={e => e.stopPropagation()}>
+        {/* Modal Header */}
+        <div className="modal-header">
+          <div>
+            <h2 className="modal-title">New Appointment</h2>
+            <p className="modal-subtitle">Schedule a patient appointment</p>
+          </div>
+          <button className="modal-close-btn" onClick={onClose}><X size={20} /></button>
+        </div>
+
+        {submitted ? (
+          <div className="modal-success">
+            <div className="success-icon">✓</div>
+            <h3>Appointment Booked!</h3>
+            <p>The appointment has been successfully scheduled.</p>
+          </div>
+        ) : (
+          <form className="modal-form" onSubmit={handleSubmit}>
+            <div className="modal-field-row">
+              <div className="modal-field">
+                <label><User size={14} /> Patient Name</label>
+                <input name="patientName" type="text" placeholder="e.g. John Doe" value={form.patientName} onChange={handleChange} required />
+              </div>
+              <div className="modal-field">
+                <label><Stethoscope size={14} /> Doctor / Specialist</label>
+                <input name="doctor" type="text" placeholder="e.g. Dr. Smith" value={form.doctor} onChange={handleChange} required />
+              </div>
+            </div>
+
+            <div className="modal-field">
+              <label><Microscope size={14} /> Appointment Type</label>
+              <select name="type" value={form.type} onChange={handleChange} required>
+                <option value="">Select type...</option>
+                <option>General Consultation</option>
+                <option>Follow-up</option>
+                <option>Cardiac Rehabilitation</option>
+                <option>Dermatology</option>
+                <option>Physiotherapy</option>
+                <option>Lab Test</option>
+                <option>Emergency</option>
+              </select>
+            </div>
+
+            <div className="modal-field-row">
+              <div className="modal-field">
+                <label><Calendar size={14} /> Date</label>
+                <input name="date" type="date" value={form.date} onChange={handleChange} required />
+              </div>
+              <div className="modal-field">
+                <label><Clock size={14} /> Time</label>
+                <input name="time" type="time" value={form.time} onChange={handleChange} required />
+              </div>
+            </div>
+
+            <div className="modal-field">
+              <label>Notes (optional)</label>
+              <textarea name="notes" placeholder="Any additional notes..." value={form.notes} onChange={handleChange} rows={3} />
+            </div>
+
+            <div className="modal-actions">
+              <button type="button" className="modal-btn-cancel" onClick={onClose}>Cancel</button>
+              <button type="submit" className="modal-btn-confirm"><Plus size={16} /> Book Appointment</button>
+            </div>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+};
 
 const Dashboard = () => {
+  const [showModal, setShowModal] = useState(false);
   return (
     <div className="dashboard-container desktop-layout">
       {/* Sidebar for Desktop */}
@@ -69,7 +163,7 @@ const Dashboard = () => {
               <button className="btn-outline">
                 <Download size={16} /> Reports
               </button>
-              <button className="btn-primary">
+              <button className="btn-primary" onClick={() => setShowModal(true)}>
                 <Plus size={16} /> New Appointment
               </button>
             </div>
@@ -220,10 +314,12 @@ const Dashboard = () => {
           </div>
         </nav>
 
-        <button className="fab-btn">
+        <button className="fab-btn" onClick={() => setShowModal(true)}>
           <Edit2 size={24} />
         </button>
       </div>
+
+      {showModal && <NewAppointmentModal onClose={() => setShowModal(false)} />}
     </div>
   );
 };
