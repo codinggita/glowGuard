@@ -94,8 +94,11 @@ const NewAppointmentModal = ({ onClose }) => {
   );
 };
 
+import SkinAnalysis from '../components/SkinAnalysis';
+
 const Dashboard = () => {
   const [showModal, setShowModal] = useState(false);
+  const [activeTab, setActiveTab] = useState('Home');
   return (
     <div className="dashboard-container desktop-layout">
       {/* Sidebar for Desktop */}
@@ -104,11 +107,11 @@ const Dashboard = () => {
           <h1 className="dashboard-title">Lumina Health</h1>
         </div>
         <nav className="sidebar-nav">
-          <div className="nav-item active">
+          <div className={`nav-item ${activeTab === 'Home' ? 'active' : ''}`} onClick={() => setActiveTab('Home')} style={{ cursor: 'pointer' }}>
             <Home size={22} />
             <span>Home</span>
           </div>
-          <div className="nav-item">
+          <div className={`nav-item ${activeTab === 'Analysis' ? 'active' : ''}`} onClick={() => setActiveTab('Analysis')} style={{ cursor: 'pointer' }}>
             <Activity size={22} />
             <span>Analysis</span>
           </div>
@@ -154,149 +157,157 @@ const Dashboard = () => {
         </header>
 
         <main className="dashboard-content">
-          <section className="welcome-section">
-            <div className="welcome-text">
-              <p className="greeting">Good morning, Director</p>
-              <p className="greeting-sub">Here is what's happening at Lumina Health today.</p>
-            </div>
-            <div className="action-buttons">
-              <button className="btn-outline">
-                <Download size={16} /> Reports
-              </button>
-              <button className="btn-primary" onClick={() => setShowModal(true)}>
-                <Plus size={16} /> New Appointment
-              </button>
-            </div>
-          </section>
-
-          <div className="dashboard-grid">
-            <div className="grid-left">
-              <section className="status-card">
-                <div className="status-header">
-                  <span className="status-badge">
-                    <span className="status-dot"></span> Operational
-                  </span>
+          {activeTab === 'Home' && (
+            <>
+              <section className="welcome-section">
+                <div className="welcome-text">
+                  <p className="greeting">Good morning, Director</p>
+                  <p className="greeting-sub">Here is what's happening at Lumina Health today.</p>
                 </div>
-                <h2 className="status-title">Patient Flow is Optimal</h2>
-                <p className="status-desc">All departments are currently running within expected parameters. Average wait time is 12 minutes.</p>
-                
-                <div className="stats-grid">
-                  <div className="stat-box">
-                    <span className="stat-label">Active Patients</span>
-                    <span className="stat-value text-teal">42</span>
-                  </div>
-                  <div className="stat-box">
-                    <span className="stat-label">Pending Tests</span>
-                    <span className="stat-value text-teal">18</span>
-                  </div>
-                  <div className="stat-box">
-                    <span className="stat-label">Staff on Duty</span>
-                    <span className="stat-value text-teal">24</span>
-                  </div>
-                  <div className="stat-box">
-                    <span className="stat-label">Alerts</span>
-                    <span className="stat-value text-red">02</span>
-                  </div>
+                <div className="action-buttons">
+                  <button className="btn-outline">
+                    <Download size={16} /> Reports
+                  </button>
+                  <button className="btn-primary" onClick={() => setShowModal(true)}>
+                    <Plus size={16} /> New Appointment
+                  </button>
                 </div>
               </section>
 
-              <section className="appointments-section">
-                <div className="section-header">
-                  <h2>Upcoming Appointments</h2>
-                  <span className="view-all" style={{ cursor: 'pointer' }}>View All</span>
-                </div>
-                <div className="appointments-list">
-                  <div className="appointment-card">
-                    <img src="https://ui-avatars.com/api/?name=Arthur+Jenkins&background=random" alt="Arthur" className="patient-avatar" />
-                    <div className="appointment-info">
-                      <h3 className="patient-name">Arthur Jenkins</h3>
-                      <p className="appointment-type">Follow-up: Cardiac Rehabilitation</p>
+              <div className="dashboard-grid">
+                <div className="grid-left">
+                  <section className="status-card">
+                    <div className="status-header">
+                      <span className="status-badge">
+                        <span className="status-dot"></span> Operational
+                      </span>
                     </div>
-                    <div className="appointment-time">
-                      <span className="time">10:30 AM</span>
-                      <span className="time-status in-mins">in 15 mins</span>
+                    <h2 className="status-title">Patient Flow is Optimal</h2>
+                    <p className="status-desc">All departments are currently running within expected parameters. Average wait time is 12 minutes.</p>
+                    
+                    <div className="stats-grid">
+                      <div className="stat-box">
+                        <span className="stat-label">Active Patients</span>
+                        <span className="stat-value text-teal">42</span>
+                      </div>
+                      <div className="stat-box">
+                        <span className="stat-label">Pending Tests</span>
+                        <span className="stat-value text-teal">18</span>
+                      </div>
+                      <div className="stat-box">
+                        <span className="stat-label">Staff on Duty</span>
+                        <span className="stat-value text-teal">24</span>
+                      </div>
+                      <div className="stat-box">
+                        <span className="stat-label">Alerts</span>
+                        <span className="stat-value text-red">02</span>
+                      </div>
                     </div>
-                    <button className="more-btn"><MoreVertical size={16} /></button>
-                  </div>
-                  <div className="appointment-card">
-                    <img src="https://ui-avatars.com/api/?name=Sarah+Chen&background=random" alt="Sarah" className="patient-avatar" />
-                    <div className="appointment-info">
-                      <h3 className="patient-name">Sarah Chen</h3>
-                      <p className="appointment-type">Consultations: Dermatology</p>
-                    </div>
-                    <div className="appointment-time">
-                      <span className="time">11:15 AM</span>
-                      <span className="time-status">Today</span>
-                    </div>
-                    <button className="more-btn"><MoreVertical size={16} /></button>
-                  </div>
-                  <div className="appointment-card">
-                    <img src="https://ui-avatars.com/api/?name=Michael+Torres&background=random" alt="Michael" className="patient-avatar" />
-                    <div className="appointment-info">
-                      <h3 className="patient-name">Michael Torres</h3>
-                      <p className="appointment-type">Initial Assessment: Physiotherapy</p>
-                    </div>
-                    <div className="appointment-time">
-                      <span className="time">01:45 PM</span>
-                      <span className="time-status">Today</span>
-                    </div>
-                    <button className="more-btn"><MoreVertical size={16} /></button>
-                  </div>
-                </div>
-              </section>
-            </div>
+                  </section>
 
-            <div className="grid-right">
-              <section className="lab-results-card">
-                <div className="icon-wrapper">
-                  <Microscope size={28} />
+                  <section className="appointments-section">
+                    <div className="section-header">
+                      <h2>Upcoming Appointments</h2>
+                      <span className="view-all" style={{ cursor: 'pointer' }}>View All</span>
+                    </div>
+                    <div className="appointments-list">
+                      <div className="appointment-card">
+                        <img src="https://ui-avatars.com/api/?name=Arthur+Jenkins&background=random" alt="Arthur" className="patient-avatar" />
+                        <div className="appointment-info">
+                          <h3 className="patient-name">Arthur Jenkins</h3>
+                          <p className="appointment-type">Follow-up: Cardiac Rehabilitation</p>
+                        </div>
+                        <div className="appointment-time">
+                          <span className="time">10:30 AM</span>
+                          <span className="time-status in-mins">in 15 mins</span>
+                        </div>
+                        <button className="more-btn"><MoreVertical size={16} /></button>
+                      </div>
+                      <div className="appointment-card">
+                        <img src="https://ui-avatars.com/api/?name=Sarah+Chen&background=random" alt="Sarah" className="patient-avatar" />
+                        <div className="appointment-info">
+                          <h3 className="patient-name">Sarah Chen</h3>
+                          <p className="appointment-type">Consultations: Dermatology</p>
+                        </div>
+                        <div className="appointment-time">
+                          <span className="time">11:15 AM</span>
+                          <span className="time-status">Today</span>
+                        </div>
+                        <button className="more-btn"><MoreVertical size={16} /></button>
+                      </div>
+                      <div className="appointment-card">
+                        <img src="https://ui-avatars.com/api/?name=Michael+Torres&background=random" alt="Michael" className="patient-avatar" />
+                        <div className="appointment-info">
+                          <h3 className="patient-name">Michael Torres</h3>
+                          <p className="appointment-type">Initial Assessment: Physiotherapy</p>
+                        </div>
+                        <div className="appointment-time">
+                          <span className="time">01:45 PM</span>
+                          <span className="time-status">Today</span>
+                        </div>
+                        <button className="more-btn"><MoreVertical size={16} /></button>
+                      </div>
+                    </div>
+                  </section>
                 </div>
-                <h2 className="lab-title">New Lab Results</h2>
-                <p className="lab-desc">4 comprehensive health assessments are ready for clinical review.</p>
-                <button className="btn-lab-review">Review Now &gt;</button>
-              </section>
 
-              <section className="activity-section">
-                <div className="section-header">
-                  <h2>Recent Activity</h2>
+                <div className="grid-right">
+                  <section className="lab-results-card">
+                    <div className="icon-wrapper">
+                      <Microscope size={28} />
+                    </div>
+                    <h2 className="lab-title">New Lab Results</h2>
+                    <p className="lab-desc">4 comprehensive health assessments are ready for clinical review.</p>
+                    <button className="btn-lab-review">Review Now &gt;</button>
+                  </section>
+
+                  <section className="activity-section">
+                    <div className="section-header">
+                      <h2>Recent Activity</h2>
+                    </div>
+                    <div className="activity-timeline">
+                      <div className="timeline-item">
+                        <div className="timeline-dot teal"></div>
+                        <div className="timeline-content">
+                          <span className="timeline-time">09:12 AM</span>
+                          <h3 className="timeline-title">Inventory Restocked</h3>
+                          <p className="timeline-desc">Critical surgical supplies delivered and logged.</p>
+                        </div>
+                      </div>
+                      <div className="timeline-item">
+                        <div className="timeline-dot teal"></div>
+                        <div className="timeline-content">
+                          <span className="timeline-time">08:45 AM</span>
+                          <h3 className="timeline-title">Shift Change</h3>
+                          <p className="timeline-desc">Morning nursing staff shift commencement complete.</p>
+                        </div>
+                      </div>
+                      <div className="timeline-item">
+                        <div className="timeline-dot orange"></div>
+                        <div className="timeline-content">
+                          <span className="timeline-time">YESTERDAY</span>
+                          <h3 className="timeline-title">Alert: Temperature Fluctuation</h3>
+                          <p className="timeline-desc">Vaccine storage unit 4 experienced a minor variance.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
                 </div>
-                <div className="activity-timeline">
-                  <div className="timeline-item">
-                    <div className="timeline-dot teal"></div>
-                    <div className="timeline-content">
-                      <span className="timeline-time">09:12 AM</span>
-                      <h3 className="timeline-title">Inventory Restocked</h3>
-                      <p className="timeline-desc">Critical surgical supplies delivered and logged.</p>
-                    </div>
-                  </div>
-                  <div className="timeline-item">
-                    <div className="timeline-dot teal"></div>
-                    <div className="timeline-content">
-                      <span className="timeline-time">08:45 AM</span>
-                      <h3 className="timeline-title">Shift Change</h3>
-                      <p className="timeline-desc">Morning nursing staff shift commencement complete.</p>
-                    </div>
-                  </div>
-                  <div className="timeline-item">
-                    <div className="timeline-dot orange"></div>
-                    <div className="timeline-content">
-                      <span className="timeline-time">YESTERDAY</span>
-                      <h3 className="timeline-title">Alert: Temperature Fluctuation</h3>
-                      <p className="timeline-desc">Vaccine storage unit 4 experienced a minor variance.</p>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </div>
-          </div>
+              </div>
+            </>
+          )}
+
+          {activeTab === 'Analysis' && (
+            <SkinAnalysis />
+          )}
         </main>
 
         <nav className="bottom-nav mobile-only">
-          <div className="nav-item active">
+          <div className={`nav-item ${activeTab === 'Home' ? 'active' : ''}`} onClick={() => setActiveTab('Home')} style={{ cursor: 'pointer' }}>
             <Home size={24} />
             <span>Home</span>
           </div>
-          <div className="nav-item">
+          <div className={`nav-item ${activeTab === 'Analysis' ? 'active' : ''}`} onClick={() => setActiveTab('Analysis')} style={{ cursor: 'pointer' }}>
             <Activity size={24} />
             <span>Analysis</span>
           </div>
